@@ -1,0 +1,23 @@
+We have a regular telephone keypad and we want to know the number of "valid" 7 digit phone numbers that start from any key on the keypad, 
+and progress to the next key using the Knight's move from chess (two squares horizontally then one vertically, 
+or two vertically then one horizontally, making an "L" shape).
+
+"Valid" numbers may not begin with 0 or 1.
+
+Keypad:
+
+1 2 3
+4 5 6
+7 8 9
+   0
+
+you make up the phone number by traversing.  
+say you start with 2.  
+you can knight move to 9 and 7.  
+"29" begins one combo.  
+from 9, you can move to 4 or 2.  
+"294" is part of a combo.  
+from 4, 3 or 9 are possible, and so on
+
+--compliments of Shayne Studdard's twisted brain.
+
