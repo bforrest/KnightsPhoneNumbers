@@ -52,7 +52,7 @@
     <Compile Include="Describe_MoveMatrix.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="KeyPad.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="MoveMatrix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
