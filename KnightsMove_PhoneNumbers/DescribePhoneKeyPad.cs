@@ -19,14 +19,7 @@ namespace KnightsMove_PhoneNumbers
 
                 before = () => target = keyPad.Keys[0];
 
-                specify = () => target.NumericValue.HasValue.is_true();
-
-                specify = () => target.NumericValue.Is(1);
-
-                specify = () => target.Coordinate.Row.Is(0);
-
-                specify = () => target.Coordinate.Column.Is(0);
-
+                specify = () => target.Id.should_be(1);
             };
 
             context["key at index 9 should have coordinate"] = () =>
@@ -35,13 +28,7 @@ namespace KnightsMove_PhoneNumbers
 
                 before = () => target = keyPad.Keys[9];
 
-                specify = () => target.NumericValue.HasValue.is_false();
-
-                specify = () => target.Display.should_be("*");
-
-                specify = () => target.Coordinate.Column.Is(0);
-
-                specify = () => target.Coordinate.Row.Is(3);
+                specify = () => target.Id.should_be(10);
             };
 
 
@@ -51,13 +38,7 @@ namespace KnightsMove_PhoneNumbers
 
                 before = () => target = keyPad.Keys[11];
 
-                specify = () => target.NumericValue.HasValue.is_false();
-
-                specify = () => target.Display.should_be("#");
-
-                specify = () => target.Coordinate.Column.Is(2);
-
-                specify = () => target.Coordinate.Row.Is(3);
+                specify = () => target.Id.should_be(12);
             };
 
             context["key at index 10 should have coordinate"] = () =>
@@ -69,10 +50,6 @@ namespace KnightsMove_PhoneNumbers
                 specify = () => target.NumericValue.HasValue.is_true();
 
                 specify = () => target.NumericValue.should_be(0);
-
-                specify = () => target.Coordinate.Column.Is(1);
-
-                specify = () => target.Coordinate.Row.Is(3);
             };
         }
     }

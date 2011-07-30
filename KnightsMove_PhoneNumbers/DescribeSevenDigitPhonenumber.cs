@@ -16,26 +16,26 @@ namespace KnightsMove_PhoneNumbers
 
             context["Start number can not be zero, one or non-numeric"] = () =>
                     {
-                        specify = () => phoneNumber.TryAdd(new Key(0, null)).should_be_false();
+                        specify = () => phoneNumber.TryAdd(new Key(0)).should_be_false();
                     
-                        specify = () => phoneNumber.TryAdd(new Key(1, null)).should_be_false();
+                        specify = () => phoneNumber.TryAdd(new Key(1)).should_be_false();
 
-                        specify = () => phoneNumber.TryAdd(new Key(10, null)).should_be_false();
+                        specify = () => phoneNumber.TryAdd(new Key(10)).should_be_false();
                     };
             context["Try add returns false for invalid keys"] = () =>
                 {
-                    specify = () => phoneNumber.TryAdd(new Key(10, null)).should_be_false();
+                    specify = () => phoneNumber.TryAdd(new Key(10)).should_be_false();
                 };
 
             context["When Adding a second number"] = () =>
                 {
-                    before = () => phoneNumber.TryAdd(new Key(3, null)).should_be_true();
+                    before = () => phoneNumber.TryAdd(new Key(3)).should_be_true();
 
-                    specify = () => phoneNumber.TryAdd(new Key(10, null)).should_be_false();
+                    specify = () => phoneNumber.TryAdd(new Key(10)).should_be_false();
 
-                    specify = () => phoneNumber.TryAdd(new Key(0, null)).should_be_true();
+                    specify = () => phoneNumber.TryAdd(new Key(0)).should_be_true();
 
-                    specify = () => phoneNumber.TryAdd(new Key(1, null)).should_be_true();
+                    specify = () => phoneNumber.TryAdd(new Key(1)).should_be_true();
                 };
             context["Given a filled number"] = () =>
                 {
@@ -44,7 +44,7 @@ namespace KnightsMove_PhoneNumbers
                                     int number = 9;
                                     while (phoneNumber.DigitCount < 7)
                                     {
-                                        phoneNumber.TryAdd(new Key(number, null));
+                                        phoneNumber.TryAdd(new Key(number));
                                         number--;
                                     }
                                 };
@@ -54,7 +54,7 @@ namespace KnightsMove_PhoneNumbers
 
                     context["Can not add an eigth number"] = () =>
                         {
-                            specify = () => phoneNumber.TryAdd(new Key(2, null)).should_be_false();
+                            specify = () => phoneNumber.TryAdd(new Key(2)).should_be_false();
                            
                         };
                     

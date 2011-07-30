@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="DescribePhoneKeyPad.cs" />
     <Compile Include="DescribeSevenDigitPhonenumber.cs" />
+    <Compile Include="Describe_MoveMatrix.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="KeyPad.cs" />
     <Compile Include="Point.cs" />

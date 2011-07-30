@@ -14,7 +14,7 @@ namespace KnightsMove_PhoneNumbers
             {
                 for (int column = 0; column < 3; column++)
                 {
-                    buttons.Add(new Key( buttons.Count + 1, new Point(row, column)));
+                    buttons.Add(new Key( buttons.Count + 1));
                 }
             }
         }
