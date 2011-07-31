@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NSpec;
 
 namespace KnightsMove_PhoneNumbers
@@ -57,91 +54,6 @@ namespace KnightsMove_PhoneNumbers
                         };
                     
                 };
-        }
-    }
-
-    public class DescribeMoveFor_Digit_2 : nspec
-    {
-        private KeyPad keyPad;
-
-        public void given_the_2_key()
-        {
-            Key the2Key = null;
-
-            before = () =>
-                         {
-                             keyPad = new KeyPad(new MoveMatrix());
-                             the2Key = keyPad.Keys[1];
-                         };
-        }
-    }
-
-    public class PhoneNumber
-    {
-        private readonly List<int> digitsThatMakeUpThisPhoneNumber;
-
-        public PhoneNumber()
-        {
-            digitsThatMakeUpThisPhoneNumber = new List<int>(7);
-        }
-
-        public PhoneNumber Clone()
-        {
-            var clone = new PhoneNumber();
-            clone.digitsThatMakeUpThisPhoneNumber.AddRange(this.digitsThatMakeUpThisPhoneNumber);
-            return clone;
-        }
-
-        public int DigitCount { get { return digitsThatMakeUpThisPhoneNumber.Count; } }
-
-        public int LastDigit
-        {
-            get { return digitsThatMakeUpThisPhoneNumber.LastOrDefault(); }
-        }
-
-        public bool TryAdd(int valueToTry)
-        {
-            if(digitsThatMakeUpThisPhoneNumber.Count == 0 && !IsValidStartDigit(valueToTry)) 
-                return false;
-
-            if (valueToTry < 0)
-            {
-                return false;
-            }
-            
-            if (digitsThatMakeUpThisPhoneNumber.Count == 7)
-            {
-                return false;
-            }
-
-            digitsThatMakeUpThisPhoneNumber.Add(valueToTry);
-            return true;
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder(digitsThatMakeUpThisPhoneNumber.Count);
-
-            foreach (var key in digitsThatMakeUpThisPhoneNumber)
-            {
-                sb.Append(key);
-            }
-
-            if (sb.Length == 7)
-                sb.Insert(3, "-");
-
-            return sb.ToString();
-        }
-
-        public static bool IsValidStartDigit(int testValue)
-        {
-            switch (testValue)
-            {
-                case 0:
-                case 1:
-                    return false;
-            }
-            return true;
         }
     }
 }

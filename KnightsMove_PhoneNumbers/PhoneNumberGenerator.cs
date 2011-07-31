@@ -3,39 +3,24 @@ using System.Linq;
 
 namespace KnightsMove_PhoneNumbers
 {
-    public class KeyPad
+    public class PhoneNumberGenerator
     {
-        private readonly MoveMatrix _moveMatrix;
-        private readonly List<Key> buttons;
+        private MoveMatrix _moveMatrix;
 
-        public KeyPad(MoveMatrix moveMatrix)
+        public PhoneNumberGenerator(MoveMatrix moves)
         {
-            _moveMatrix = moveMatrix;
-            buttons = new List<Key>(12);
-
-            for (int row = 0; row < 4; row++) 
-            {
-                for (int column = 0; column < 3; column++)
-                {
-                    buttons.Add(new Key( buttons.Count + 1));
-                }
-            }
-        }
-
-        public IList<Key> Keys
-        {
-            get { return buttons; }
+            _moveMatrix = moves;
         }
 
         public List<PhoneNumber> GetNumbersStartingFrom(int startDigit)
         {
-            building = new HashSet<PhoneNumber>();
+            List<PhoneNumber> accruedNumbers = new List<PhoneNumber>();
 
             if (!PhoneNumber.IsValidStartDigit(startDigit))
-                return building.ToList();
+                return accruedNumbers.ToList();
 
             PhoneNumber number = new PhoneNumber();
-            List<PhoneNumber> accruedNumbers = new List<PhoneNumber>();
+            
 
             if (number.TryAdd(startDigit))
             {
@@ -44,8 +29,6 @@ namespace KnightsMove_PhoneNumbers
 
             return accruedNumbers.Where(c => c.DigitCount == 7).ToList();
         }
-
-        private HashSet<PhoneNumber> building;
 
         private List<PhoneNumber> AddToDigitSequence(List<PhoneNumber> aggregate, PhoneNumber sourceNumber)
         {
@@ -56,7 +39,7 @@ namespace KnightsMove_PhoneNumbers
             foreach (var nextDigit in nextDigits)
             {
                 var newNumber = sourceNumber.Clone();
-                if( newNumber.TryAdd(nextDigit))
+                if (newNumber.TryAdd(nextDigit))
                 {
                     aggregate.Add(newNumber);
                     AddToDigitSequence(aggregate, newNumber);

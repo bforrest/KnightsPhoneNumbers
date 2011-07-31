@@ -25,10 +25,5 @@
         public int Id { get; protected set; }
 
         public int NumericValue { get; protected set; }
-
-        public bool CanMoveTo(int targetNumber)
-        {
-            return false;
-        }
     }
 }

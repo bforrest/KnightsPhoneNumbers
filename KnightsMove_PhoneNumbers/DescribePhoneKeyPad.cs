@@ -51,28 +51,33 @@ namespace KnightsMove_PhoneNumbers
                 specify = () => target.NumericValue.should_be(0);
             };
         }
+    }
 
-        public void given_a_startomg_number()
+    public class DescribePhoneNumberGenerator : nspec
+    {
+        private PhoneNumberGenerator generator;
+
+        public void given_a_starting_number()
         {
-            before = () => keyPad = new KeyPad(new MoveMatrix());
+            before = () => generator = new PhoneNumberGenerator(new MoveMatrix());
 
             context["no valid phone numbers start with zero"] = () =>
             {
-                List<PhoneNumber> listOfNumbers = keyPad.GetNumbersStartingFrom(0);
+                List<PhoneNumber> listOfNumbers = generator.GetNumbersStartingFrom(0);
 
                 specify = () => listOfNumbers.Count.should_be(0);
             };
 
             context["no valid numbers start with one"] = () =>
             {
-                List<PhoneNumber> listOfNumbers = keyPad.GetNumbersStartingFrom(1);
+                List<PhoneNumber> listOfNumbers = generator.GetNumbersStartingFrom(1);
 
                 specify = () => listOfNumbers.Count.should_be(0);
             };
 
             context["starting from two (2) should produce valid numbers"] = () =>
             {
-                List<PhoneNumber> listOfNumbers = keyPad.GetNumbersStartingFrom(2);
+                List<PhoneNumber> listOfNumbers = generator.GetNumbersStartingFrom(2);
 
                 specify = () => listOfNumbers.Count.should_be_greater_than(0);
             };

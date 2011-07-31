@@ -52,8 +52,10 @@
     <Compile Include="Describe_MoveMatrix.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="KeyPad.cs" />
-    <Compile Include="KeyPadDriver.cs" />
+    <Compile Include="PhoneNumberGeneratorDriver.cs" />
     <Compile Include="MoveMatrix.cs" />
+    <Compile Include="PhoneNumber.cs" />
+    <Compile Include="PhoneNumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
