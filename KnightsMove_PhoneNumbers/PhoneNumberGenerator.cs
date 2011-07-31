@@ -30,7 +30,7 @@ namespace KnightsMove_PhoneNumbers
             return accruedNumbers.Where(c => c.DigitCount == 7).ToList();
         }
 
-        private List<PhoneNumber> AddToDigitSequence(List<PhoneNumber> aggregate, PhoneNumber sourceNumber)
+        private void AddToDigitSequence(List<PhoneNumber> aggregate, PhoneNumber sourceNumber)
         {
             int lastDigit = sourceNumber.LastDigit;
 
@@ -45,7 +45,7 @@ namespace KnightsMove_PhoneNumbers
                     AddToDigitSequence(aggregate, newNumber);
                 }
             }
-            return aggregate;
+            return;
         }
     }
 }
