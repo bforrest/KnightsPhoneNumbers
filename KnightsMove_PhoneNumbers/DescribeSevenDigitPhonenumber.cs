@@ -14,28 +14,26 @@ namespace KnightsMove_PhoneNumbers
         {
             before = () => phoneNumber = new PhoneNumber();
 
-            context["Start number can not be zero, one or non-numeric"] = () =>
+            context["Start number can not be zero or one"] = () =>
                     {
-                        specify = () => phoneNumber.TryAdd(new Key(0)).should_be_false();
+                        specify = () => phoneNumber.TryAdd(0).should_be_false();
                     
-                        specify = () => phoneNumber.TryAdd(new Key(1)).should_be_false();
-
-                        specify = () => phoneNumber.TryAdd(new Key(10)).should_be_false();
+                        specify = () => phoneNumber.TryAdd(1).should_be_false();
                     };
             context["Try add returns false for invalid keys"] = () =>
                 {
-                    specify = () => phoneNumber.TryAdd(new Key(10)).should_be_false();
+                    specify = () => phoneNumber.TryAdd(-1).should_be_false();
                 };
 
             context["When Adding a second number"] = () =>
                 {
-                    before = () => phoneNumber.TryAdd(new Key(3)).should_be_true();
+                    before = () => phoneNumber.TryAdd(3).should_be_true();
 
-                    specify = () => phoneNumber.TryAdd(new Key(10)).should_be_false();
+                    specify = () => phoneNumber.TryAdd(-1).should_be_false();
 
-                    specify = () => phoneNumber.TryAdd(new Key(0)).should_be_true();
+                    specify = () => phoneNumber.TryAdd(0).should_be_true();
 
-                    specify = () => phoneNumber.TryAdd(new Key(1)).should_be_true();
+                    specify = () => phoneNumber.TryAdd(1).should_be_true();
                 };
             context["Given a filled number"] = () =>
                 {
@@ -44,7 +42,7 @@ namespace KnightsMove_PhoneNumbers
                                     int number = 9;
                                     while (phoneNumber.DigitCount < 7)
                                     {
-                                        phoneNumber.TryAdd(new Key(number));
+                                        phoneNumber.TryAdd(number);
                                         number--;
                                     }
                                 };
@@ -54,7 +52,7 @@ namespace KnightsMove_PhoneNumbers
 
                     context["Can not add an eigth number"] = () =>
                         {
-                            specify = () => phoneNumber.TryAdd(new Key(2)).should_be_false();
+                            specify = () => phoneNumber.TryAdd(2).should_be_false();
                            
                         };
                     
@@ -72,7 +70,7 @@ namespace KnightsMove_PhoneNumbers
 
             before = () =>
                          {
-                             keyPad = new KeyPad();
+                             keyPad = new KeyPad(new MoveMatrix());
                              the2Key = keyPad.Keys[1];
                          };
         }
@@ -80,25 +78,33 @@ namespace KnightsMove_PhoneNumbers
 
     public class PhoneNumber
     {
-        private readonly List<Key> digitsThatMakeUpThisPhoneNumber;
+        private readonly List<int> digitsThatMakeUpThisPhoneNumber;
 
         public PhoneNumber()
         {
-            digitsThatMakeUpThisPhoneNumber = new List<Key>(7);
+            digitsThatMakeUpThisPhoneNumber = new List<int>(7);
+        }
+
+        public PhoneNumber Clone()
+        {
+            var clone = new PhoneNumber();
+            clone.digitsThatMakeUpThisPhoneNumber.AddRange(this.digitsThatMakeUpThisPhoneNumber);
+            return clone;
         }
 
         public int DigitCount { get { return digitsThatMakeUpThisPhoneNumber.Count; } }
 
-        public string Display
+        public int LastDigit
         {
-            get { return this.ToString(); }
+            get { return digitsThatMakeUpThisPhoneNumber.LastOrDefault(); }
         }
 
-        public bool TryAdd(Key keyToTry)
+        public bool TryAdd(int valueToTry)
         {
-            if (!IsValidStartDigit(keyToTry)) return false;
+            if(digitsThatMakeUpThisPhoneNumber.Count == 0 && !IsValidStartDigit(valueToTry)) 
+                return false;
 
-            if (!keyToTry.NumericValue.HasValue)
+            if (valueToTry < 0)
             {
                 return false;
             }
@@ -108,7 +114,7 @@ namespace KnightsMove_PhoneNumbers
                 return false;
             }
 
-            digitsThatMakeUpThisPhoneNumber.Add(keyToTry);
+            digitsThatMakeUpThisPhoneNumber.Add(valueToTry);
             return true;
         }
 
@@ -118,7 +124,7 @@ namespace KnightsMove_PhoneNumbers
 
             foreach (var key in digitsThatMakeUpThisPhoneNumber)
             {
-                sb.Append(key.NumericValue.Value);
+                sb.Append(key);
             }
 
             if (sb.Length == 7)
@@ -126,16 +132,14 @@ namespace KnightsMove_PhoneNumbers
 
             return sb.ToString();
         }
-        private bool IsValidStartDigit(Key keyToTry)
+
+        public static bool IsValidStartDigit(int testValue)
         {
-            if (digitsThatMakeUpThisPhoneNumber.Count == 0)
+            switch (testValue)
             {
-                switch (keyToTry.NumericValue)
-                {
-                    case 0:
-                    case 1:
-                        return false;
-                }
+                case 0:
+                case 1:
+                    return false;
             }
             return true;
         }

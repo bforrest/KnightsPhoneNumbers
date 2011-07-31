@@ -14,7 +14,7 @@
                     break;
                 case 10:
                 case 12:
-                    // not valid numbers
+                    NumericValue = -1;
                     break;
                 default:
                     NumericValue = keyId;
@@ -24,7 +24,7 @@
 
         public int Id { get; protected set; }
 
-        public int? NumericValue { get; protected set; }
+        public int NumericValue { get; protected set; }
 
         public bool CanMoveTo(int targetNumber)
         {
