@@ -5,22 +5,22 @@ namespace KnightsMove_PhoneNumbers
 {
     public class PhoneNumberGenerator
     {
-        private MoveMatrix _moveMatrix;
+        private readonly IMoveMatrix _moveMatrix;
 
-        public PhoneNumberGenerator(MoveMatrix moves)
+        public PhoneNumberGenerator(IMoveMatrix moves)
         {
             _moveMatrix = moves;
         }
 
         public List<PhoneNumber> GetNumbersStartingFrom(int startDigit)
         {
-            List<PhoneNumber> accruedNumbers = new List<PhoneNumber>();
+            var accruedNumbers = new List<PhoneNumber>();
 
             if (!PhoneNumber.IsValidStartDigit(startDigit))
                 return accruedNumbers.ToList();
 
-            PhoneNumber number = new PhoneNumber();
-            
+            var number = new PhoneNumber();
+
 
             if (number.TryAdd(startDigit))
             {
@@ -34,11 +34,11 @@ namespace KnightsMove_PhoneNumbers
         {
             int lastDigit = sourceNumber.LastDigit;
 
-            var nextDigits = _moveMatrix.ReachableFrom(lastDigit);
+            List<int> nextDigits = _moveMatrix.ReachableFrom(lastDigit);
 
-            foreach (var nextDigit in nextDigits)
+            foreach (int nextDigit in nextDigits)
             {
-                var newNumber = sourceNumber.Clone();
+                PhoneNumber newNumber = sourceNumber.Clone();
                 if (newNumber.TryAdd(nextDigit))
                 {
                     aggregate.Add(newNumber);

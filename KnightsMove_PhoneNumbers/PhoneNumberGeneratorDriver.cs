@@ -8,26 +8,61 @@ namespace KnightsMove_PhoneNumbers
     [TestFixture]
     public class PhoneNumberGeneratorDriver
     {
-        private PhoneNumberGenerator numberGenerator;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
         {
-            numberGenerator = new PhoneNumberGenerator(new MoveMatrix());
+            numberGenerator = new PhoneNumberGenerator(new GoofysMatrix());
+        }
+
+        #endregion
+
+        private PhoneNumberGenerator numberGenerator;
+
+        [Test]
+        public void can_get_a_seven_digit_number()
+        {
+            var tehNumbersFromTehCodez = new List<PhoneNumber>();
+
+            for (int i = 2; i < 10; i++)
+            {
+                List<PhoneNumber> results = numberGenerator.GetNumbersStartingFrom(i);
+                tehNumbersFromTehCodez.AddRange(results);
+            }
+
+            Console.WriteLine("We found {0} phone numbers", tehNumbersFromTehCodez.Count);
+            Console.WriteLine("How many are distinct? {0}", tehNumbersFromTehCodez.Distinct().Count());
+
+            PhoneNumber containsAFive = tehNumbersFromTehCodez.Find(c => c.ToString().Contains("5"));
+            Assert.IsNull(containsAFive);
+
+            foreach (PhoneNumber phoneNumber in tehNumbersFromTehCodez)
+            {
+                Console.WriteLine(phoneNumber);
+            }
         }
 
         [Test]
-        public void no_numbers_start_with_zero()
+        public void can_we_find_numbers_starting_with_two()
         {
-            var results = numberGenerator.GetNumbersStartingFrom(0);
+            List<PhoneNumber> results = numberGenerator.GetNumbersStartingFrom(2);
 
-            Assert.AreEqual(0, results.Count);
+            Assert.IsTrue(results.Count > 0);
         }
 
         [Test]
         public void no_numbers_start_with_one()
         {
-            var results = numberGenerator.GetNumbersStartingFrom(1);
+            List<PhoneNumber> results = numberGenerator.GetNumbersStartingFrom(1);
+
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [Test]
+        public void no_numbers_start_with_zero()
+        {
+            List<PhoneNumber> results = numberGenerator.GetNumbersStartingFrom(0);
 
             Assert.AreEqual(0, results.Count);
         }
@@ -36,40 +71,9 @@ namespace KnightsMove_PhoneNumbers
         [Test]
         public void nothing_starts_with_5()
         {
-            var results = numberGenerator.GetNumbersStartingFrom(5);
+            List<PhoneNumber> results = numberGenerator.GetNumbersStartingFrom(5);
 
             Assert.AreEqual(0, results.Count);
-        }
-
-        [Test]
-        public void can_we_find_numbers_starting_with_two()
-        {
-            var results = numberGenerator.GetNumbersStartingFrom(2);
-
-            Assert.IsTrue(results.Count > 0);
-        }
-
-        [Test]
-        public void can_get_a_seven_digit_number()
-        {
-            List<PhoneNumber> tehNumbersFromTehCodez = new List<PhoneNumber>();
-
-            for (int i = 2; i < 10; i++)
-            {
-                var results = numberGenerator.GetNumbersStartingFrom(i);
-                tehNumbersFromTehCodez.AddRange(results);
-            }
-
-            Console.WriteLine("We found {0} phone numbers", tehNumbersFromTehCodez.Count);
-            Console.WriteLine("How many are distinct? {0}", tehNumbersFromTehCodez.Distinct().Count());
-
-            var containsAFive = tehNumbersFromTehCodez.Find(c => c.ToString().Contains("5"));
-            Assert.IsNull(containsAFive);
-
-            foreach (var phoneNumber in tehNumbersFromTehCodez)
-            {
-                Console.WriteLine(phoneNumber);
-            }
         }
     }
 }
